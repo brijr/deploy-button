@@ -1,8 +1,8 @@
-import { Craft, Section, Container, Prose } from "@/components/craft";
+import { Craft, Section, Container } from "@/components/craft";
 import { Deploy } from "@/components/deploy";
 import Balancer from "react-wrap-balancer";
 
-import { GitHubLogoIcon, VercelLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   return (
