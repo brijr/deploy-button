@@ -55,8 +55,10 @@ const CodeBlock = ({
       </Button>
     </div>
     <div className="p-2 sm:p-4 bg-accent/30">
-      <pre className="text-xs sm:text-sm overflow-x-auto">
-        <code className="whitespace-pre">{code}</code>
+      <pre className="text-xs sm:text-sm">
+        <code className="block sm:whitespace-pre whitespace-pre-wrap">
+          {code}
+        </code>
       </pre>
     </div>
   </div>

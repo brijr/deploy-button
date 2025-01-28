@@ -6,8 +6,8 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   return (
-    <Section>
-      <Container className="space-y-12">
+    <Section className="w-full px-4">
+      <Container className="space-y-12 max-w-3xl mx-auto">
         <Craft className="space-y-6 sm:space-y-12">
           <div className="flex items-center sm:justify-center gap-2">
             <svg

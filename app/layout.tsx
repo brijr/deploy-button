@@ -25,9 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="no-scrollbar">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
-        <main className="w-full h-full flex items-center justify-center">
+        <main className="flex items-center justify-center py-12">
           {children}
         </main>
       </body>
