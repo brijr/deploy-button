@@ -165,14 +165,6 @@ export const DeployButton = () => (
 
   return (
     <div className="container max-w-2xl py-10">
-      <div className="flex flex-col gap-2 mb-8">
-        <h1 className="text-2xl font-medium">▲ Deploy Button Generator</h1>
-        <p className="text-sm text-gray-500">
-          Create a deploy button for your GitHub repository that works with
-          Vercel.
-        </p>
-      </div>
-
       <div className="bg-gray-50 rounded-lg p-4 mb-6">
         <div className="flex flex-col space-y-1">
           <label className="text-sm text-gray-600">Selected Repository</label>
