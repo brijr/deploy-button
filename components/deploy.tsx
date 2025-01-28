@@ -145,29 +145,30 @@ export const DeployButton = () => (
   };
 
   return (
-    <div className="border max-w-xl mx-auto w-full">
+    <div className="border max-w-xl mx-auto w-full text-lg">
       <form
         onSubmit={handleSubmit}
-        className="px-3 sm:px-6 pt-2 sm:pt-4 pb-3 sm:pb-6 w-full"
+        className="px-3 sm:px-6 pt-2 sm:pt-4 pb-3 sm:pb-6 w-full bg-accent/30"
       >
-        <div className="flex flex-col space-y-1">
-          <label>Enter Repository URL</label>
+        <div className="flex flex-col space-y-2">
+          <label className="text-base sm:text-lg">Enter Repository URL</label>
           <div className="grid sm:flex gap-2">
             <Input
               id="repo-url"
               placeholder="github.com/owner/repo"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
+              className="bg-background"
             />
-            <Button type="submit" disabled={loading}>
+            <Button size="lg" type="submit" disabled={loading}>
               {loading ? (
                 <>
-                  <Loader2 className="animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                   <span>Loading</span>
                 </>
               ) : (
                 <>
-                  <GitHubLogoIcon />
+                  <GitHubLogoIcon className="h-4 w-4" />
                   <span>Generate</span>
                 </>
               )}
@@ -177,128 +178,136 @@ export const DeployButton = () => (
       </form>
 
       {error && (
-        <div className="p-3 sm:p-6 border-b">
+        <div className="px-3 sm:px-6 pb-3 sm:pb-6 border-b">
           <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription className="text-sm">{error}</AlertDescription>
           </Alert>
         </div>
       )}
 
       {repoData && (
-        <div className="space-y-8 border-t p-3 sm:p-6">
+        <div className="space-y-6 sm:space-y-8 border-t p-3 sm:p-6">
           <div className="space-y-2">
-            <h3>Preview</h3>
-            <div className="border bg-accent/30 p-3 sm:p-6 h-[82px]">
-              <div className="flex items-center justify-center">
-                <a
-                  href={generateDeployUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://vercel.com/button"
-                    alt="Deploy with Vercel"
-                  />
-                </a>
-              </div>
+            <h3 className="text-base sm:text-lg">Preview</h3>
+            <div className="border bg-accent/30 p-3 sm:p-6 h-[82px] flex items-center justify-center">
+              <a
+                href={generateDeployUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="https://vercel.com/button" alt="Deploy with Vercel" />
+              </a>
             </div>
           </div>
 
           <div className="space-y-2">
-            <h3>Installation</h3>
-            <Tabs defaultValue="markdown">
-              <TabsList>
-                <TabsTrigger value="markdown">Markdown</TabsTrigger>
-                <TabsTrigger value="html">HTML</TabsTrigger>
-                <TabsTrigger value="jsx">shadcn/ui</TabsTrigger>
+            <h3 className="text-base sm:text-lg">Installation</h3>
+            <Tabs defaultValue="markdown" className="w-full">
+              <TabsList className="w-full">
+                <TabsTrigger value="markdown" className="flex-1 text-sm">
+                  Markdown
+                </TabsTrigger>
+                <TabsTrigger value="html" className="flex-1 text-sm">
+                  HTML
+                </TabsTrigger>
+                <TabsTrigger value="jsx" className="flex-1 text-sm">
+                  shadcn/ui
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="markdown">
-                <div className="border">
-                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
-                    <span className="text-sm text-muted-foreground">
+                <div className="border overflow-hidden">
+                  <div className="flex items-center justify-between border-b px-2 sm:px-4 py-2 bg-accent/30">
+                    <span className="text-xs sm:text-sm text-muted-foreground">
                       Markdown
                     </span>
                     <Button
                       size="icon"
                       variant="outline"
-                      onClick={() => copyToClipboard(generateHTML(), "html")}
+                      className="h-8 w-8"
+                      onClick={() =>
+                        copyToClipboard(generateMarkdown(), "markdown")
+                      }
                     >
                       {copied === "markdown" ? (
                         <>
-                          <CheckIcon className="h-4 w-4" />
+                          <CheckIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copied!</span>
                         </>
                       ) : (
                         <>
-                          <CopyIcon className="h-4 w-4" />
+                          <CopyIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copy</span>
                         </>
                       )}
                     </Button>
                   </div>
-                  <div className="p-4 bg-accent/30">
-                    <pre className="text-sm overflow-x-auto no-scrollbar">
+                  <div className="p-2 sm:p-4 bg-accent/30">
+                    <pre className="text-xs sm:text-sm overflow-x-auto whitespace-pre-wrap break-all">
                       <code>{generateMarkdown()}</code>
                     </pre>
                   </div>
                 </div>
               </TabsContent>
               <TabsContent value="html">
-                <div className="border">
-                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
-                    <span className="text-sm text-muted-foreground">HTML</span>
+                <div className="border overflow-hidden">
+                  <div className="flex items-center justify-between border-b px-2 sm:px-4 py-2 bg-accent/30">
+                    <span className="text-xs sm:text-sm text-muted-foreground">
+                      HTML
+                    </span>
                     <Button
                       size="icon"
                       variant="outline"
+                      className="h-8 w-8"
                       onClick={() => copyToClipboard(generateHTML(), "html")}
                     >
                       {copied === "html" ? (
                         <>
-                          <CheckIcon className="h-4 w-4" />
+                          <CheckIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copied!</span>
                         </>
                       ) : (
                         <>
-                          <CopyIcon className="h-4 w-4" />
+                          <CopyIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copy</span>
                         </>
                       )}
                     </Button>
                   </div>
-                  <div className="p-4 bg-accent/30">
-                    <pre className="text-sm overflow-x-auto no-scrollbar">
+                  <div className="p-2 sm:p-4 bg-accent/30">
+                    <pre className="text-xs sm:text-sm overflow-x-auto whitespace-pre-wrap break-all">
                       <code>{generateHTML()}</code>
                     </pre>
                   </div>
                 </div>
               </TabsContent>
               <TabsContent value="jsx">
-                <div className="border">
-                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
-                    <span className="text-sm text-muted-foreground">
-                      shadcn/ui Button Component
+                <div className="border overflow-hidden">
+                  <div className="flex items-center justify-between border-b px-2 sm:px-4 py-2 bg-accent/30">
+                    <span className="text-xs sm:text-sm text-muted-foreground truncate">
+                      shadcn/ui button
                     </span>
                     <Button
                       size="icon"
                       variant="outline"
-                      onClick={() => copyToClipboard(generateHTML(), "html")}
+                      className="h-8 w-8"
+                      onClick={() => copyToClipboard(generateJSX(), "jsx")}
                     >
                       {copied === "jsx" ? (
                         <>
-                          <CheckIcon className="h-4 w-4" />
+                          <CheckIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copied!</span>
                         </>
                       ) : (
                         <>
-                          <CopyIcon className="h-4 w-4" />
+                          <CopyIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="sr-only">Copy</span>
                         </>
                       )}
                     </Button>
                   </div>
-                  <div className="p-4 bg-accent/30">
-                    <pre className="text-sm overflow-x-auto no-scrollbar">
-                      <code className="grid gap-4">{generateJSX()}</code>
+                  <div className="p-2 sm:p-4 bg-accent/30">
+                    <pre className="text-xs sm:text-sm overflow-x-auto whitespace-pre-wrap break-all">
+                      <code>{generateJSX()}</code>
                     </pre>
                   </div>
                 </div>
@@ -309,23 +318,22 @@ export const DeployButton = () => (
           {repoData.envVars.length > 0 && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <h3>Environment Variables</h3>
-                <span>{repoData.envVars.length} variables found</span>
+                <h3 className="text-base sm:text-lg">Environment Variables</h3>
+                <span className="text-xs sm:text-sm text-muted-foreground">
+                  {repoData.envVars.length} variables found
+                </span>
               </div>
-              <div>
-                <div>
-                  <ul className="space-y-2">
-                    {repoData.envVars.map((env) => (
-                      <li
-                        key={env}
-                        className="border p-2 font-mono bg-accent/30"
-                      >
-                        <span />
-                        {env}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="border bg-accent/30">
+                <ul className="divide-y">
+                  {repoData.envVars.map((env) => (
+                    <li
+                      key={env}
+                      className="p-2 sm:p-3 font-mono text-xs sm:text-sm break-all"
+                    >
+                      {env}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}
