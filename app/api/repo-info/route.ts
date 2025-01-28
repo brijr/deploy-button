@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   if (!owner || !repo) {
     return NextResponse.json(
       { message: "Missing owner or repo parameter" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
@@ -25,9 +25,8 @@ export async function GET(request: Request) {
               }
             : {}),
         },
-      },
+      }
     );
-    s;
     if (!repoResponse.ok) {
       throw new Error("Repository not found");
     }
@@ -36,7 +35,7 @@ export async function GET(request: Request) {
 
     // Fetch .env.example content if it exists
     const envResponse = await fetch(
-      `https://raw.githubusercontent.com/${owner}/${repo}/main/.env.example`,
+      `https://raw.githubusercontent.com/${owner}/${repo}/main/.env.example`
     );
 
     let envVars: string[] = [];
@@ -63,7 +62,7 @@ export async function GET(request: Request) {
             ? error.message
             : "Failed to fetch repository data",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
