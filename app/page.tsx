@@ -38,9 +38,7 @@ export default function Home() {
             </p>
           </div>
         </Craft>
-        <Prose>
-          <Deploy />
-        </Prose>
+        <Deploy />
       </Container>
     </Section>
   );

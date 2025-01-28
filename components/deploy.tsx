@@ -185,7 +185,7 @@ export const DeployButton = () => (
         <div className="space-y-8 border-t p-6">
           <div className="space-y-2">
             <h3>Preview</h3>
-            <div className="border bg-accent/30">
+            <div className="border bg-accent/30 p-6">
               <div className="flex items-center justify-center">
                 <a
                   href={generateDeployUrl()}
@@ -210,51 +210,92 @@ export const DeployButton = () => (
                 <TabsTrigger value="jsx">shadcn/ui</TabsTrigger>
               </TabsList>
               <TabsContent value="markdown">
-                <div>
-                  <div className="relative">
+                <div className="border">
+                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
+                    <span className="text-sm text-muted-foreground">
+                      Markdown
+                    </span>
                     <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() =>
-                        copyToClipboard(generateMarkdown(), "markdown")
-                      }
+                      size="icon"
+                      variant="outline"
+                      onClick={() => copyToClipboard(generateHTML(), "html")}
                     >
-                      {copied === "markdown" ? <CheckIcon /> : <CopyIcon />}
+                      {copied === "markdown" ? (
+                        <>
+                          <CheckIcon className="h-4 w-4" />
+                          <span className="sr-only">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon className="h-4 w-4" />
+                          <span className="sr-only">Copy</span>
+                        </>
+                      )}
                     </Button>
-                    <pre>
+                  </div>
+                  <div className="p-4 bg-accent/30">
+                    <pre className="text-sm overflow-x-auto no-scrollbar">
                       <code>{generateMarkdown()}</code>
                     </pre>
                   </div>
                 </div>
               </TabsContent>
               <TabsContent value="html">
-                <div>
-                  <div className="relative">
+                <div className="border">
+                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
+                    <span className="text-sm text-muted-foreground">HTML</span>
                     <Button
-                      size="sm"
-                      variant="ghost"
+                      size="icon"
+                      variant="outline"
                       onClick={() => copyToClipboard(generateHTML(), "html")}
                     >
-                      {copied === "html" ? <CheckIcon /> : <CopyIcon />}
+                      {copied === "html" ? (
+                        <>
+                          <CheckIcon className="h-4 w-4" />
+                          <span className="sr-only">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon className="h-4 w-4" />
+                          <span className="sr-only">Copy</span>
+                        </>
+                      )}
                     </Button>
-                    <pre>
+                  </div>
+                  <div className="p-4 bg-accent/30">
+                    <pre className="text-sm overflow-x-auto no-scrollbar">
                       <code>{generateHTML()}</code>
                     </pre>
                   </div>
                 </div>
               </TabsContent>
               <TabsContent value="jsx">
-                <div>
-                  <div className="relative">
+                <div className="border">
+                  <div className="flex items-center justify-between border-b px-4 py-2 bg-accent/30">
+                    <span className="text-sm text-muted-foreground">
+                      shadcn/ui Button Component
+                    </span>
                     <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => copyToClipboard(generateJSX(), "jsx")}
+                      size="icon"
+                      variant="outline"
+                      onClick={() => copyToClipboard(generateHTML(), "html")}
                     >
-                      {copied === "jsx" ? <CheckIcon /> : <CopyIcon />}
+                      {copied === "jsx" ? (
+                        <>
+                          <CheckIcon className="h-4 w-4" />
+                          <span className="sr-only">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon className="h-4 w-4" />
+                          <span className="sr-only">Copy</span>
+                        </>
+                      )}
                     </Button>
-                    <pre>
-                      <code>{generateJSX()}</code>
+                  </div>
+                  <div className="p-4 bg-accent/30">
+                    <pre className="text-sm overflow-x-auto no-scrollbar">
+                      <code className="grid gap-4">{generateJSX()}</code>
                     </pre>
                   </div>
                 </div>
@@ -272,7 +313,10 @@ export const DeployButton = () => (
                 <div>
                   <ul className="space-y-2">
                     {repoData.envVars.map((env) => (
-                      <li key={env} className="flex items-center gap-2">
+                      <li
+                        key={env}
+                        className="border p-2 font-mono bg-accent/30"
+                      >
                         <span />
                         {env}
                       </li>
