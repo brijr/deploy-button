@@ -9,7 +9,7 @@ export default function Home() {
     <Section>
       <Container className="space-y-12">
         <Craft className="space-y-6 sm:space-y-12">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center sm:justify-center gap-2">
             <svg
               className="h-6 w-6"
               aria-label="Vercel logomark"
@@ -23,7 +23,7 @@ export default function Home() {
                 fill="black"
               ></path>
             </svg>
-            <GitHubLogoIcon className="h-6 w-6" />
+            <GitHubLogoIcon className="h-7 w-7" />
           </div>
           <div className="sm:text-center space-y-3">
             <h1>

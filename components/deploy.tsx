@@ -146,10 +146,13 @@ export const DeployButton = () => (
 
   return (
     <div className="border max-w-xl mx-auto w-full">
-      <form onSubmit={handleSubmit} className="px-6 pt-4 pb-6 w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="px-3 sm:px-6 pt-2 sm:pt-4 pb-3 sm:pb-6 w-full"
+      >
         <div className="flex flex-col space-y-1">
           <label>Enter Repository URL</label>
-          <div className="flex gap-2">
+          <div className="grid sm:flex gap-2">
             <Input
               id="repo-url"
               placeholder="github.com/owner/repo"
@@ -174,7 +177,7 @@ export const DeployButton = () => (
       </form>
 
       {error && (
-        <div className="p-6 border-b">
+        <div className="p-3 sm:p-6 border-b">
           <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
@@ -182,10 +185,10 @@ export const DeployButton = () => (
       )}
 
       {repoData && (
-        <div className="space-y-8 border-t p-6">
+        <div className="space-y-8 border-t p-3 sm:p-6">
           <div className="space-y-2">
             <h3>Preview</h3>
-            <div className="border bg-accent/30 p-6">
+            <div className="border bg-accent/30 p-3 sm:p-6 h-[82px]">
               <div className="flex items-center justify-center">
                 <a
                   href={generateDeployUrl()}
