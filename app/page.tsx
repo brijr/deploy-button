@@ -40,7 +40,7 @@ export default function Home() {
         </Craft>
         <Deploy />
         <p className="text-sm sm:text-center text-muted-foreground">
-          Created by{" "}
+          <a href="https://bridger.to">Created</a> by{" "}
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -48,6 +48,15 @@ export default function Home() {
             href="https://bridger.to/x"
           >
             Bridger Tower
+          </a>
+          . View on{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+            href="https://github.com/brijr/deploy-button"
+          >
+            GitHub
           </a>
           .
         </p>
