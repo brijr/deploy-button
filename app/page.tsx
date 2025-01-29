@@ -39,6 +39,18 @@ export default function Home() {
           </div>
         </Craft>
         <Deploy />
+        <p className="text-sm sm:text-center text-muted-foreground">
+          Created by{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+            href="https://bridger.to/x"
+          >
+            Bridger Tower
+          </a>
+          .
+        </p>
       </Container>
     </Section>
   );
