@@ -90,12 +90,12 @@ const UrlForm = ({ url, loading, onSubmit, onUrlChange }: UrlFormProps) => (
         <Button size="lg" type="submit" disabled={loading}>
           {loading ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              <Loader2 className="h-4 w-4 animate-spin" />
               <span>Loading</span>
             </>
           ) : (
             <>
-              <GitHubLogoIcon className="h-4 w-4 mr-2" />
+              <GitHubLogoIcon className="h-4 w-4" />
               <span>Generate</span>
             </>
           )}
