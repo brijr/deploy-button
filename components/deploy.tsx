@@ -177,6 +177,7 @@ export const Deploy = () => {
 
       const [owner, repo] = parts;
       return { owner, repo };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       return null;
     }
