@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GitHubLogoIcon, CopyIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useMeasure } from "react-use";
 
 interface RepoData {
   name: string;
@@ -162,6 +163,7 @@ export const Deploy = () => {
   const [copied, setCopied] = useState<"markdown" | "html" | "jsx" | null>(
     null
   );
+  const [ref, { height }] = useMeasure<HTMLDivElement>();
 
   const parseGitHubUrl = (url: string) => {
     try {
@@ -282,91 +284,100 @@ export const DeployButton = () => (
   };
 
   return (
-    <div className="border max-w-xl mx-auto w-full text-lg">
-      <UrlForm
-        url={url}
-        loading={loading}
-        onSubmit={handleSubmit}
-        onUrlChange={setUrl}
-      />
+    <motion.div
+      className="border max-w-xl mx-auto w-full text-lg overflow-hidden"
+      animate={{ height: height || "auto" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <div ref={ref}>
+        <UrlForm
+          url={url}
+          loading={loading}
+          onSubmit={handleSubmit}
+          onUrlChange={setUrl}
+        />
 
-      <AnimatePresence>
-        {error && (
-          <motion.div
-            className="px-3 sm:px-6 pb-3 sm:pb-6 border-b"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Alert variant="destructive">
-              <AlertDescription className="text-sm">{error}</AlertDescription>
-            </Alert>
-          </motion.div>
-        )}
-
-        {repoData && (
-          <motion.div
-            className="space-y-6 sm:space-y-8 border-t p-3 sm:p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Preview deployUrl={generateDeployUrl()} />
-
+        <AnimatePresence mode="wait">
+          {error && (
             <motion.div
-              className="space-y-2"
+              className="px-3 sm:px-6 pb-3 sm:pb-6 border-b"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Alert variant="destructive">
+                <AlertDescription className="text-sm">{error}</AlertDescription>
+              </Alert>
+            </motion.div>
+          )}
+
+          {repoData && (
+            <motion.div
+              className="space-y-6 sm:space-y-8 border-t p-3 sm:p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
             >
-              <h3 className="text-base sm:text-lg">Installation</h3>
-              <Tabs defaultValue="markdown" className="w-full">
-                <TabsList className="w-full">
-                  <TabsTrigger value="markdown" className="flex-1 text-sm">
-                    Markdown
-                  </TabsTrigger>
-                  <TabsTrigger value="html" className="flex-1 text-sm">
-                    HTML
-                  </TabsTrigger>
-                  <TabsTrigger value="jsx" className="flex-1 text-sm">
-                    shadcn/ui
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="markdown">
-                  <CodeBlock
-                    code={generateMarkdown()}
-                    language="markdown"
-                    label="Markdown"
-                    onCopy={copyToClipboard}
-                    copied={copied}
-                  />
-                </TabsContent>
-                <TabsContent value="html">
-                  <CodeBlock
-                    code={generateHTML()}
-                    language="html"
-                    label="HTML"
-                    onCopy={copyToClipboard}
-                    copied={copied}
-                  />
-                </TabsContent>
-                <TabsContent value="jsx">
-                  <CodeBlock
-                    code={generateJSX()}
-                    language="jsx"
-                    label="shadcn/ui button"
-                    onCopy={copyToClipboard}
-                    copied={copied}
-                  />
-                </TabsContent>
-              </Tabs>
-            </motion.div>
+              <Preview deployUrl={generateDeployUrl()} />
 
-            {repoData.envVars.length > 0 && <EnvVars vars={repoData.envVars} />}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+              <motion.div
+                className="space-y-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                <h3 className="text-base sm:text-lg">Installation</h3>
+                <Tabs defaultValue="markdown" className="w-full">
+                  <TabsList className="w-full">
+                    <TabsTrigger value="markdown" className="flex-1 text-sm">
+                      Markdown
+                    </TabsTrigger>
+                    <TabsTrigger value="html" className="flex-1 text-sm">
+                      HTML
+                    </TabsTrigger>
+                    <TabsTrigger value="jsx" className="flex-1 text-sm">
+                      shadcn/ui
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="markdown">
+                    <CodeBlock
+                      code={generateMarkdown()}
+                      language="markdown"
+                      label="Markdown"
+                      onCopy={copyToClipboard}
+                      copied={copied}
+                    />
+                  </TabsContent>
+                  <TabsContent value="html">
+                    <CodeBlock
+                      code={generateHTML()}
+                      language="html"
+                      label="HTML"
+                      onCopy={copyToClipboard}
+                      copied={copied}
+                    />
+                  </TabsContent>
+                  <TabsContent value="jsx">
+                    <CodeBlock
+                      code={generateJSX()}
+                      language="jsx"
+                      label="shadcn/ui button"
+                      onCopy={copyToClipboard}
+                      copied={copied}
+                    />
+                  </TabsContent>
+                </Tabs>
+              </motion.div>
+
+              {repoData.envVars.length > 0 && (
+                <EnvVars vars={repoData.envVars} />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 };
